@@ -30,6 +30,9 @@ const express_1 = __importDefault(require("express"));
 const dotenv = __importStar(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
+const contactRoutes_1 = __importDefault(require("./routes/contactRoutes"));
+const messageRoutes_1 = __importDefault(require("./routes/messageRoutes"));
 dotenv.config();
 // DB
 mongoose_1.default.connect(process.env.MONGO_CONNECTION);
@@ -43,6 +46,9 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)());
 // ROUTES
+app.use('/api/users', userRoutes_1.default);
+app.use('/api/contacts', contactRoutes_1.default);
+app.use('/api/messages', messageRoutes_1.default);
 app.get('/', (req, res) => res.send('Chat App\nyours truly,\nXhunn'));
 // START
 app.listen(process.env.PORT || port, () => console.log(`Server started on port ${port}`));

@@ -50,4 +50,5 @@ router.get('/contacts/', auth_1.verify, (req, res) => __awaiter(void 0, void 0, 
     const data = yield (0, contactsController_1.getAllContacts)((_b = user.data) === null || _b === void 0 ? void 0 : _b.id);
     (0, routesAPI_1.sendAPI)(res, data);
 }));
+exports.default = router;
 //# sourceMappingURL=contactRoutes.js.map
