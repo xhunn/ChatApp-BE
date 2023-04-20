@@ -22,8 +22,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isOnline: {
+    type: Boolean,
+    default: false,
+  },
   contacts: {
-    type: Array,
+    // An array of contact IDs
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Contact",
+      }
+    ],
     required: true,
   },
   createdAt: {
@@ -32,4 +42,4 @@ const userSchema = new mongoose.Schema({
   },
 })
 
-export default mongoose.model("User", userSchema)
+export default mongoose.model("Users", userSchema)
