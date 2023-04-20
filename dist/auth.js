@@ -53,7 +53,7 @@ exports.verify = verify;
 const decode = (token) => {
     if (token) {
         token = token.split(" ")[1];
-        return jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
+        return jwt.verify(token, process.env.TOKEN_SECRET, (err) => {
             var _a;
             if (err)
                 return {
@@ -61,7 +61,11 @@ const decode = (token) => {
                     status: 401,
                 };
             else
-                return (_a = jwt.decode(token, { complete: true })) === null || _a === void 0 ? void 0 : _a.payload;
+                return {
+                    message: "Token verified",
+                    status: 200,
+                    data: (_a = jwt.decode(token, { complete: true })) === null || _a === void 0 ? void 0 : _a.payload
+                };
         });
     }
     else

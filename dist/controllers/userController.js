@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -16,7 +7,7 @@ exports.getAllProfiles = exports.getProfile = exports.login = exports.register =
 const user_1 = __importDefault(require("../models/user"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const auth_1 = require("../auth");
-const register = (data) => __awaiter(void 0, void 0, void 0, function* () {
+const register = (data) => {
     return user_1.default.findOne({ username: data.username }).then((user) => {
         if (!user)
             return bcrypt_1.default.hash(data.password, 10).then((hash) => {
@@ -26,7 +17,13 @@ const register = (data) => __awaiter(void 0, void 0, void 0, function* () {
                     name: data.name,
                     password: hash,
                 });
-                return newUser.save().catch(err => {
+                return newUser.save().then(user => {
+                    return {
+                        message: "User created successfully",
+                        status: 201,
+                        token: (0, auth_1.createToken)(user),
+                    };
+                }).catch(err => {
                     return {
                         message: `Something went wrong:\n${err}`,
                         status: 500,
@@ -47,9 +44,9 @@ const register = (data) => __awaiter(void 0, void 0, void 0, function* () {
                 status: 500,
             };
     });
-});
+};
 exports.register = register;
-const login = (credentials) => __awaiter(void 0, void 0, void 0, function* () {
+const login = (credentials) => {
     return user_1.default.findOne({ username: credentials.username }).then((user) => {
         if (user)
             return bcrypt_1.default.compare(credentials.password, user.password).then((result) => {
@@ -76,9 +73,9 @@ const login = (credentials) => __awaiter(void 0, void 0, void 0, function* () {
             status: 500,
         };
     });
-});
+};
 exports.login = login;
-const getProfile = (username) => __awaiter(void 0, void 0, void 0, function* () {
+const getProfile = (username) => {
     return user_1.default.findOne({ username }).then(user => {
         if (user)
             return {
@@ -104,9 +101,9 @@ const getProfile = (username) => __awaiter(void 0, void 0, void 0, function* () 
             status: 500,
         };
     });
-});
+};
 exports.getProfile = getProfile;
-const getAllProfiles = () => __awaiter(void 0, void 0, void 0, function* () {
+const getAllProfiles = () => {
     return user_1.default.find({}).then(users => {
         if (users)
             return {
@@ -132,6 +129,6 @@ const getAllProfiles = () => __awaiter(void 0, void 0, void 0, function* () {
             status: 500,
         };
     });
-});
+};
 exports.getAllProfiles = getAllProfiles;
 //# sourceMappingURL=userController.js.map

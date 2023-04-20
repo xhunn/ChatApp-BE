@@ -1,20 +1,11 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getContact = exports.getAllContacts = exports.updateContact = exports.postContact = void 0;
 const contact_1 = __importDefault(require("../models/contact"));
-const postContact = (data) => __awaiter(void 0, void 0, void 0, function* () {
+const postContact = (data) => {
     return contact_1.default.findOne({ participants: data.participants }).then((contact) => {
         if (!contact)
             return new contact_1.default({
@@ -38,9 +29,9 @@ const postContact = (data) => __awaiter(void 0, void 0, void 0, function* () {
             status: 500,
         };
     });
-});
+};
 exports.postContact = postContact;
-const updateContact = (data) => __awaiter(void 0, void 0, void 0, function* () {
+const updateContact = (data) => {
     return contact_1.default.findById(data.id).then((contact) => {
         if (contact) {
             if (data.name)
@@ -65,9 +56,9 @@ const updateContact = (data) => __awaiter(void 0, void 0, void 0, function* () {
             status: 500,
         };
     });
-});
+};
 exports.updateContact = updateContact;
-const getContact = (contactId) => __awaiter(void 0, void 0, void 0, function* () {
+const getContact = (contactId) => {
     return contact_1.default.findById(contactId).then((contact) => {
         if (contact)
             return {
@@ -86,9 +77,9 @@ const getContact = (contactId) => __awaiter(void 0, void 0, void 0, function* ()
             status: 500,
         };
     });
-});
+};
 exports.getContact = getContact;
-const getAllContacts = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllContacts = (userId) => {
     return contact_1.default.find({ participants: userId }).then((contacts) => {
         if (contacts)
             return {
@@ -107,6 +98,6 @@ const getAllContacts = (userId) => __awaiter(void 0, void 0, void 0, function* (
             status: 500,
         };
     });
-});
+};
 exports.getAllContacts = getAllContacts;
 //# sourceMappingURL=contactsController.js.map
