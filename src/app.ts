@@ -2,6 +2,9 @@ import express from 'express'
 import * as dotenv from 'dotenv'
 import cors from 'cors'
 import mongoose from 'mongoose'
+import userRoutes from './routes/user'
+import contactRoutes from './routes/contact'
+import messageRoutes from './routes/message'
 
 dotenv.config()
 
@@ -20,6 +23,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 // ROUTES
+app.use('/api/users', userRoutes)
+app.use('/api/contacts', contactRoutes)
+app.use('/api/messages', messageRoutes)
 app.get('/', (req, res) => res.send('Chat App\nyours truly,\nXhunn'))
 
 

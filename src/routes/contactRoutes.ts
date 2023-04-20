@@ -57,3 +57,5 @@ router.get('/contacts/', verify, async (req: Request, res: Response) => {
   sendAPI(res, data)
     
 });
+
+export default router;
