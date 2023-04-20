@@ -30,19 +30,27 @@ const verify = (req: Request, res: Response, next: any) => {
   
 }
 
-const decode = (token: string) => {
+const decode = (token: string): {
+  message: string,
+  status: number,
+  data?: any,
+} | any => {
 
   if (token) {
 
     token = token.split(" ")[1];
-    return jwt.verify(token, process.env.TOKEN_SECRET!!, (err: any, decoded: any) => {
+    return jwt.verify(token, process.env.TOKEN_SECRET!!, (err: any) => {
 
       if (err) return {
         message: "Unauthorized!",
         status: 401,
       };
       
-      else return jwt.decode(token, { complete: true })?.payload;
+      else return {
+        message: "Token verified",
+        status: 200,
+        data: jwt.decode(token, { complete: true })?.payload
+      }
 
     });
 

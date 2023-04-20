@@ -4,7 +4,7 @@ import {
   UpdateContactData,
 } from "../interfaces/contact";
 
-const postContact = async ( data: PostContactData ) => {
+const postContact = ( data: PostContactData ) => {
   
   return Contact.findOne({ participants: data.participants }).then((contact) => {
     
@@ -39,7 +39,7 @@ const postContact = async ( data: PostContactData ) => {
 
 }
 
-const updateContact = async ( data: UpdateContactData ) => {
+const updateContact = ( data: UpdateContactData ) => {
   
   return Contact.findById(data.id).then((contact) => {
 
@@ -75,7 +75,7 @@ const updateContact = async ( data: UpdateContactData ) => {
 
 }
 
-const getContact = async (contactId: string) => {
+const getContact = (contactId: string) => {
   return Contact.findById(contactId).then((contact) => {
 
     if (contact) return {
@@ -98,8 +98,8 @@ const getContact = async (contactId: string) => {
   });
 }
 
-const getAllContacts = async ( userId: string ) => {
-  
+const getAllContacts = ( userId: string ) => {
+    
     return Contact.find({ participants: userId }).then((contacts) => {
   
       if (contacts) return {

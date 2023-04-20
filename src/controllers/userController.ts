@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { createToken } from "../auth";
 import { UserRegisterData, UserLogin } from "../interfaces/user";
 
-const register = async (data: UserRegisterData) => {
+const register = (data: UserRegisterData) => {
   return User.findOne({ username: data.username }).then((user) => {
 
     if (!user) return bcrypt.hash(data.password, 10).then((hash) => {
@@ -15,7 +15,15 @@ const register = async (data: UserRegisterData) => {
         password: hash,
       });
 
-      return newUser.save().catch(err => {
+      return newUser.save().then(user => {
+          
+        return {
+          message: "User created successfully",
+          status: 201,
+          token: createToken(user),
+        }
+        
+      }).catch(err => {
 
         return {
           message: `Something went wrong:\n${err}`,
@@ -45,7 +53,7 @@ const register = async (data: UserRegisterData) => {
 
 }
 
-const login = async (credentials: UserLogin) => {
+const login = (credentials: UserLogin) => {
 
   return User.findOne({ username: credentials.username }).then((user) => {
 
@@ -79,7 +87,7 @@ const login = async (credentials: UserLogin) => {
   });
 }
 
-const getProfile = async (username: string) => {
+const getProfile = (username: string) => {
 
   return User.findOne({ username }).then(user => {
 
@@ -111,7 +119,7 @@ const getProfile = async (username: string) => {
   });
 }
 
-const getAllProfiles = async () => {
+const getAllProfiles = () => {
   
   return User.find({}).then(users => {
   

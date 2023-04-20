@@ -3,7 +3,7 @@ import {
   PostMessageData
 } from "../interfaces/message";
 
-const postMessage = async ( data: PostMessageData ) => {
+const postMessage = ( data: PostMessageData ) => {
   
   return new Message({
 
@@ -30,7 +30,7 @@ const postMessage = async ( data: PostMessageData ) => {
 
 }
 
-const getMessage = async ( messageId: string ) => {
+const getMessage = ( messageId: string ) => {
   
   return Message.findById(messageId).then((message) => {
 
@@ -55,7 +55,7 @@ const getMessage = async ( messageId: string ) => {
   });
 }
 
-const getAllMessages = async ( userId: string ) => {
+const getAllMessages = ( userId: string ) => {
   
   return Message.find({ from: userId }).then((messages) => {
     
