@@ -46,9 +46,9 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)());
 // ROUTES
-app.use('/api/users', userRoutes_1.default);
-app.use('/api/contacts', contactRoutes_1.default);
-app.use('/api/messages', messageRoutes_1.default);
+app.use('/users', userRoutes_1.default);
+app.use('/contacts', contactRoutes_1.default);
+app.use('/messages', messageRoutes_1.default);
 app.get('/', (req, res) => res.send('Chat App\nyours truly,\nXhunn'));
 // START
 app.listen(process.env.PORT || port, () => console.log(`Server started on port ${port}`));

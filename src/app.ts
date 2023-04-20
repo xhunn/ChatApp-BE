@@ -23,9 +23,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 // ROUTES
-app.use('/api/users', userRoutes)
-app.use('/api/contacts', contactRoutes)
-app.use('/api/messages', messageRoutes)
+app.use('/users', userRoutes)
+app.use('/contacts', contactRoutes)
+app.use('/messages', messageRoutes)
 app.get('/', (req, res) => res.send('Chat App\nyours truly,\nXhunn'))
 
 
