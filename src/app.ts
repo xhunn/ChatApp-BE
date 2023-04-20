@@ -2,9 +2,9 @@ import express from 'express'
 import * as dotenv from 'dotenv'
 import cors from 'cors'
 import mongoose from 'mongoose'
-import userRoutes from './routes/user'
-import contactRoutes from './routes/contact'
-import messageRoutes from './routes/message'
+import userRoutes from './routes/userRoutes'
+import contactRoutes from './routes/contactRoutes'
+import messageRoutes from './routes/messageRoutes'
 
 dotenv.config()
 
