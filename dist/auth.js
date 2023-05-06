@@ -28,6 +28,7 @@ const jwt = __importStar(require("jsonwebtoken"));
 const createToken = (user) => {
     const payload = {
         id: user._id,
+        name: user.name,
         username: user.username,
         email: user.email,
         avatar: user.avatar,
@@ -53,8 +54,7 @@ exports.verify = verify;
 const decode = (token) => {
     if (token) {
         token = token.split(" ")[1];
-        return jwt.verify(token, process.env.TOKEN_SECRET, (err) => {
-            var _a;
+        return jwt.verify(token, process.env.TOKEN_SECRET, (err, payload) => {
             if (err)
                 return {
                     message: "Unauthorized!",
@@ -64,7 +64,7 @@ const decode = (token) => {
                 return {
                     message: "Token verified",
                     status: 200,
-                    data: (_a = jwt.decode(token, { complete: true })) === null || _a === void 0 ? void 0 : _a.payload
+                    data: payload
                 };
         });
     }

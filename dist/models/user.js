@@ -3,8 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const userSchema = new mongoose_1.default.Schema({
+const mongoose_1 = require("mongoose");
+const mongoose_2 = __importDefault(require("mongoose"));
+const userSchema = new mongoose_2.default.Schema({
     name: {
         type: String,
         required: true,
@@ -31,20 +32,16 @@ const userSchema = new mongoose_1.default.Schema({
         type: Boolean,
         default: false,
     },
-    contacts: {
-        // An array of contact IDs
-        type: [
-            {
-                type: mongoose_1.default.Schema.Types.ObjectId,
-                ref: "Contact",
-            }
-        ],
-        required: true,
-    },
+    contacts: [{
+            // An array of contact IDs
+            type: mongoose_1.Types.ObjectId,
+            ref: "Contacts",
+            required: true,
+        }],
     createdAt: {
         type: Date,
         default: Date.now,
     },
 });
-exports.default = mongoose_1.default.model("Users", userSchema);
+exports.default = mongoose_2.default.model("Users", userSchema);
 //# sourceMappingURL=user.js.map

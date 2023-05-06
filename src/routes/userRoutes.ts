@@ -7,6 +7,7 @@ import {
   getProfile,
   getAllProfiles
 } from '../controllers/userController';
+import { verify, decode } from '../auth';
 
 const router = express.Router()
 
@@ -38,8 +39,16 @@ router.post('/login', async (req: Request, res: Response) => {
 
 });
 
+// VERIFY
+router.post('/verify', verify, async (req: Request, res: Response) => {
+  const payload = decode(req.headers.authorization!!)
+  const data = await getProfile(payload.data.username)
+  sendAPI(res, data)
+})
+  
+
 // GET PROFILE
-router.get('/profile', async (req: Request, res: Response) => {
+router.post('/profile', async (req: Request, res: Response) => {
     
   const data = await getProfile(req.body.username)
   sendAPI(res, data)

@@ -1,3 +1,4 @@
+import { Types } from "mongoose"
 import mongoose from "mongoose"
 const userSchema = new mongoose.Schema({
   name: {
@@ -26,16 +27,14 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  contacts: {
+  contacts: [{
+    
     // An array of contact IDs
-    type: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Contact",
-      }
-    ],
+    type: Types.ObjectId,
+    ref: "Contacts",
     required: true,
-  },
+
+  }],
   createdAt: {
     type: Date,
     default: Date.now,

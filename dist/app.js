@@ -41,7 +41,16 @@ db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', () => console.log("Connected to DB"));
 // APP
 const app = (0, express_1.default)();
-const port = 4000;
+const port = parseInt(process.env.PORT) || 4000;
+// SOCKET
+// const io = new socketio.Server()
+// io.attach(port)
+// io.on('connection', (socket) => {
+//   console.log('a user connected')
+//   socket.on('disconnect', () => {
+//     console.log('user disconnected')
+//   })
+// })
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)());
@@ -51,5 +60,5 @@ app.use('/contacts', contactRoutes_1.default);
 app.use('/messages', messageRoutes_1.default);
 app.get('/', (req, res) => res.send('Chat App\nyours truly,\nXhunn'));
 // START
-app.listen(process.env.PORT || port, () => console.log(`Server started on port ${port}`));
+app.listen(port, () => console.log(`Server started on port ${port}`));
 //# sourceMappingURL=app.js.map

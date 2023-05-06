@@ -5,6 +5,7 @@ const createToken = (user: any) => {
 
   const payload = {
     id: user._id,
+    name: user.name,
     username: user.username,
     email: user.email,
     avatar: user.avatar,
@@ -39,7 +40,7 @@ const decode = (token: string): {
   if (token) {
 
     token = token.split(" ")[1];
-    return jwt.verify(token, process.env.TOKEN_SECRET!!, (err: any) => {
+    return jwt.verify(token, process.env.TOKEN_SECRET!!, (err: any, payload: any) => {
 
       if (err) return {
         message: "Unauthorized!",
@@ -49,7 +50,7 @@ const decode = (token: string): {
       else return {
         message: "Token verified",
         status: 200,
-        data: jwt.decode(token, { complete: true })?.payload
+        data: payload
       }
 
     });
